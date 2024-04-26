@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Currency Conversion Average Calculator</title>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #fff;
+    font-family: 'Garamond', serif;
+  }
+
+  #conversionForm {
+    border: 2px solid #000;
+    padding: 20px;
+    text-align: center;
+    background-color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #000;
+  }
+
+  table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    border: 1px solid #000;
+    padding: 8px;
+    color: #000;
+  }
+
+  th {
+    background-color: #fff;
+    font-size: 20px;
+  }
+
+  td {
+    font-size: 18px;
+    background-color: #fff;
+  }
+
+  #resultContainer {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #000;
+
+  }
+
+  #result {
+    font-weight: bold;
+    font-size: 20px;
+    color: #000;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  button {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    border-radius: 20px;
+    border: #000;
+    border:solid;
+    border-color: black;
+
+  }
+
+  button:hover {
+    background-color: #ffffff;
+    color: black;
+    border: #000;
+    border:solid;
+    border-color: black;
+  }
+</style>
+</head>
+<body>
+  <div id="conversionForm">
+    <h2>Calculator</h2>
+    <form>
+      <table>
+        <tr>
+          <th>Currency</th>
+          <th>Units</th>
+        </tr>
+        <tr>
+          <td><input type="number" name="currency1" min="0"></td>
+          <td><input type="number" name="units1" min="0"></td>
+        </tr>
+        <tr>
+          <td><input type="number" name="currency2" min="0"></td>
+          <td><input type="number" name="units2" min="0"></td>
+        </tr>
+        <tr>
+          <td><input type="number" name="currency3" min="0"></td>
+          <td><input type="number" name="units3" min="0"></td>
+        </tr>
+        <tr>
+          <td><input type="number" name="currency4" min="0"></td>
+          <td><input type="number" name="units4" min="0"></td>
+        </tr>
+        <tr>
+          <td><input type="number" name="currency5" min="0"></td>
+          <td><input type="number" name="units5" min="0"></td>
+        </tr>
+      </table>
+      <button type="button" onclick="calculateAverage()">Calculate Average</button>
+    </form>
+    <div id="resultContainer">
+      <div id="result"></div>
+    </div>
+  </div>
+
+  <script>
+    function calculateAverage() {
+      var currencies = [];
+      var units = [];
+      var total = 0;
+      var totalUnits = 0;
+      
+      for (var i = 1; i <= 5; i++) {
+        var currencyInput = document.getElementsByName('currency' + i)[0];
+        var unitInput = document.getElementsByName('units' + i)[0];
+        
+        var currency = parseFloat(currencyInput.value);
+        var unit = parseFloat(unitInput.value);
+        
+        // Check for empty or negative values
+        if (currency === "" || isNaN(currency) || currency < 0) {
+          currency = 0;
+          currencyInput.value = 0;
+        }
+        if (unit === "" || isNaN(unit) || unit < 0) {
+          unit = 0;
+          unitInput.value = 0;
+        }
+        
+        currencies.push(currency * unit); // Add currency * units to array
+        units.push(unit);
+        
+        total += currency * unit;
+        totalUnits += unit;
+      }
+      
+      var average = total / totalUnits;
+      
+      document.getElementById('result').innerHTML = "Average conversion rate: " + average.toFixed(2);
+    }
+  </script>
+</body>
+</html>
